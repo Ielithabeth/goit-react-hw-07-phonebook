@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { filterContacts } from 'redux/filterSlice';
+import { selectFilter } from 'redux/selectors/selectors';
 
 export const Filter = () => {
   const dispatch = useDispatch();
-  const filter = useSelector(state => state.filter);
+  const filter = useSelector(selectFilter);
 
   const showFilteredContacts = e => {
     dispatch(filterContacts(e.target.value));
@@ -12,9 +13,9 @@ export const Filter = () => {
   return (
     <div>
       <label>
+        Find contacts by name
         <input
           type="text"
-          placeholder="Find contacts by name..."
           value={filter}
           onChange={showFilteredContacts}
         />

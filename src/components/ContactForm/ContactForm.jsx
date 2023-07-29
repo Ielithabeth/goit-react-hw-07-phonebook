@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit';
-import { addContact } from 'redux/contactSlice';
+import { addContactThunk } from 'redux/operations/contactsThunk';
 import { Form } from './ContactForm.styled';
 
 export const ContactForm = () => {
@@ -10,12 +9,11 @@ export const ContactForm = () => {
     e.preventDefault();
 
     const newContact = {
-      id: nanoid(),
       name: e.target.elements.name.value,
       number: e.target.elements.number.value,
     };
+    dispatch(addContactThunk(newContact));
 
-    dispatch(addContact(newContact));
     e.target.reset();
   };
 
@@ -34,7 +32,7 @@ export const ContactForm = () => {
 
       <label>
         Number
-        <input 
+        <input
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
